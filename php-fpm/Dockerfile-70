@@ -13,11 +13,16 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libssl-dev \
     libmcrypt-dev \
+    g++ \
+    libicu-dev \
     --no-install-recommends \
     && rm -r /var/lib/apt/lists/*
 
-# install mcrypt library
+# Install mcrypt library
 RUN docker-php-ext-install mcrypt
+
+# Install intl
+RUN docker-php-ext-install intl
 
 # Install mongodb driver
 RUN pecl install mongodb
