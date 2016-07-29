@@ -8,6 +8,7 @@ ADD ./laravel.pool.conf /usr/local/etc/php-fpm.d/
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libmemcached-dev \
+    git \
     curl \
     libjpeg-dev \
     libpng12-dev \
@@ -55,6 +56,14 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 RUN usermod -u 1000 www-data
+
+# Install XHProf (Tideways) PHP 7 compatible
+RUN git clone https://github.com/tideways/php-profiler-extension.git \
+    && cd php-profiler-extension \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install
 
 WORKDIR /var/www/laravel
 

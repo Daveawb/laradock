@@ -12,9 +12,22 @@ services:
             - ./logs/nginx/:/var/log/nginx
         ports:
             - "80:80"
+            - "8010:8010"
             - "443:443"
         links:
             - php-fpm
+
+### Sass Service #######################################
+    sass:
+        build:
+            context: ./nodejs
+            dockerfile: Dockerfile
+        volumes_from:
+            - volumes_source
+        expose:
+            - "8888"
+        links:
+            - workspace
 
 ### PHP-FPM Container #######################################
 
@@ -146,7 +159,9 @@ services:
     volumes_source:
         build: ./volumes/application
         volumes:
-            - ../:/var/www/laravel
+            - ../app/:/var/www/laravel
+            - ../sass/:/var/www/sass
+            - ../storage/:/var/www/storage
 
 ### Databases Data Container ################################
 
