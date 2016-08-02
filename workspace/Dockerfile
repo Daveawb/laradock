@@ -37,6 +37,7 @@ RUN apt-get update && apt-get install -y --force-yes \
         php7.0-gd \
         php7.0-xdebug \
         php-dev \
+        pkg-config \
         libcurl4-openssl-dev \
         libedit-dev \
         libssl-dev \
